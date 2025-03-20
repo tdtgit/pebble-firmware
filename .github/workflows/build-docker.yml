@@ -37,4 +37,5 @@ jobs:
         with:
           push: true
           file: ./docker/Dockerfile
+          tags: ghcr.io/${{ github.repository }}/pebble-firmware-waf:latest
           platforms: linux/amd64
