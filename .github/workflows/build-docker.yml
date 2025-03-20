@@ -37,7 +37,7 @@ jobs:
             third_party/freertos/FreeRTOS-Kernel
             third_party/nanopb/nanopb
             third_party/tinymt/TinyMT
-          key: ${{ runner.os }}-test-fixture
+          key: ${{ runner.os }}-submodules
 
       - name: Init submodules
         if: steps.cache-submodules.outputs.cache-hit != 'true'
