@@ -46,9 +46,9 @@ jobs:
 
       - name: Init submodules
         if: steps.cache-submodules.outputs.cache-hit != 'true'
-        run: |
-          git config --global --add safe.directory $GITHUB_WORKSPACE
-          git submodule update --init --recursive
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Configure
         run: ./waf configure --board ${{ matrix.board }}

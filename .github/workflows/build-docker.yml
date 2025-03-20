@@ -41,8 +41,9 @@ jobs:
 
       - name: Init submodules
         if: steps.cache-submodules.outputs.cache-hit != 'true'
-        run:
-          git submodule update --init --recursive
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
