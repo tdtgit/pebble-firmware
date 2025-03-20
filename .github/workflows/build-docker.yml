@@ -49,4 +49,4 @@ jobs:
             ARM_GNU_TOOLCHAIN_PLATFORM=${ARM_GNU_TOOLCHAIN_PLATFORM}
             EM_VERSION=${EM_VERSION}
             EM_NODE_VERSION=${EM_NODE_VERSION}
-          tags: ghcr.io/${{ github.repository }}/pebble-firmware-builder:latest
+          tags: ghcr.io/${{ github.repository }}/builder:latest
