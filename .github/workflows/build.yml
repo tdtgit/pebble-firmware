@@ -16,6 +16,8 @@ env:
 jobs:
   build:
     runs-on: ubuntu-24.04
+    permissions:
+      packages: read
     strategy:
       matrix:
         board: ["snowy_bb2", "spalding_bb2", "silk_bb2", "asterix_evt1"]
