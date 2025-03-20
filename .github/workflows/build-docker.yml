@@ -16,8 +16,6 @@ env:
 jobs:
   build-docker:
     runs-on: ubuntu-24.04
-    permissions:
-      packages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
