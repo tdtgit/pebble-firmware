@@ -47,6 +47,7 @@ jobs:
       - name: Init submodules
         if: steps.cache-submodules.outputs.cache-hit != 'true'
         run:
+          git config --global --add safe.directory /
           git submodule update --init --recursive
 
       - name: Configure
