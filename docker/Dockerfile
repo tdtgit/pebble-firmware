@@ -44,4 +44,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/bash", "-c"]
