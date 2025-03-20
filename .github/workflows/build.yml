@@ -22,7 +22,7 @@ jobs:
       matrix:
         board: ["snowy_bb2", "spalding_bb2", "silk_bb2", "asterix_evt1"]
     container:
-      image: ghcr.io/tdtgit/pebble-firmware/builder:latest
+      image: ghcr.io/${{ github.repository }}/pebble-firmware/builder:latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

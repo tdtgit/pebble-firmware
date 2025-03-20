@@ -45,9 +45,4 @@ jobs:
           cache-to: type=gha,mode=max
           push: true
           file: ./docker/Dockerfile
-          args: |
-            ARM_GNU_TOOLCHAIN_VERSION=${ARM_GNU_TOOLCHAIN_VERSION}
-            ARM_GNU_TOOLCHAIN_PLATFORM=${ARM_GNU_TOOLCHAIN_PLATFORM}
-            EM_VERSION=${EM_VERSION}
-            EM_NODE_VERSION=${EM_NODE_VERSION}
           tags: ghcr.io/${{ github.repository }}/builder:latest
