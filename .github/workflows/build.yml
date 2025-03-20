@@ -22,16 +22,9 @@ jobs:
       matrix:
         board: ["snowy_bb2", "spalding_bb2", "silk_bb2", "asterix_evt1"]
     container: 
-      image: tdtgit/pebble-firmware-waf:latest
+      image: ghcr.io/tdtgit/pebble-firmware-waf:latest
       options: "-v $(pwd):/app"
     steps:
-      - name: Login to GHcr.io
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Configure
         run: ./waf configure --board ${{ matrix.board }}
 
