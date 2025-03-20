@@ -16,13 +16,20 @@ env:
 jobs:
   build:
     runs-on: ubuntu-24.04
+    permissions:
+      packages: read
     strategy:
       matrix:
         board: ["snowy_bb2", "spalding_bb2", "silk_bb2", "asterix_evt1"]
-    container: 
-      image: tdtgit/pebble-firmware-waf:latest
-      options: "-v $(pwd):/app"
+    container:
+      image: ghcr.io/${{ github.repository }}/pebble-firmware/builder:latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+
       - name: Configure
         run: ./waf configure --board ${{ matrix.board }}
 
