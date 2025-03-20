@@ -22,13 +22,33 @@ jobs:
       matrix:
         board: ["snowy_bb2", "spalding_bb2", "silk_bb2", "asterix_evt1"]
     container:
-      image: ghcr.io/${{ github.repository }}/pebble-firmware/builder:latest
+      image: ghcr.io/${{ github.repository }}/builder:latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          submodules: true
+
+      - name: Cache submodules
+        id: cache-submodules
+        uses: actions/cache@v4
+        with:
+          path: |
+            third_party/cmsis_core/CMSIS
+            third_party/hal_stm32/stm32-sdk
+            third_party/nimble/mynewt-nimble
+            third_party/ti_bt_sp/ti-service-packs
+            third_party/hal_nordic/nrfx
+            third_party/freertos/FreeRTOS-Kernel
+            third_party/nanopb/nanopb
+            third_party/tinymt/TinyMT
+          key: ${{ runner.os }}-submodules
+
+      - name: Init submodules
+        if: steps.cache-submodules.outputs.cache-hit != 'true'
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Configure
         run: ./waf configure --board ${{ matrix.board }}
