@@ -24,6 +24,12 @@ jobs:
     container:
       image: ghcr.io/tdtgit/pebble-firmware/builder:latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+
       - name: Configure
         run: ./waf configure --board ${{ matrix.board }}
 
