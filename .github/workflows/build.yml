@@ -22,9 +22,10 @@ jobs:
       matrix:
         board: ["snowy_bb2", "spalding_bb2", "silk_bb2", "asterix_evt1"]
     container:
+      image: ghcr.io/tdtgit/pebble-firmware/builder:latest
+      options: -w /app
       volumes:
         - ${{ github.workspace }}:/app
-      image: ghcr.io/tdtgit/pebble-firmware/builder:latest
     steps:
       - name: Configure
         run: ./waf configure --board ${{ matrix.board }}
