@@ -25,6 +25,13 @@ jobs:
       image: tdtgit/pebble-firmware-waf:latest
       options: "-v $(pwd):/app"
     steps:
+      - name: Login to GHcr.io
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Configure
         run: ./waf configure --board ${{ matrix.board }}
 
