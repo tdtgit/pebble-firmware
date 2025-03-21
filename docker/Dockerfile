@@ -1,12 +1,13 @@
 ARG PYTHON_VERSION=3.13
 ARG EM_VERSION=4.0.1
+ARG EM_VERSION_COMMIT=9dbdc4b3437750b85d16931c7c801bb71a782122
 ARG EM_NODE_VERSION=20.18.0_64bit
 ARG ARM_GNU_TOOLCHAIN_VERSION=14.2.rel1
 ARG ARM_GNU_TOOLCHAIN_PLATFORM=x86_64-arm-none-eabi
 ARG PEBBLE_BOARD_LIST="snowy_bb2 spalding_bb2 silk_bb2 asterix_evt1"
 
 FROM python:${PYTHON_VERSION} AS base
-RUN apt update && apt install -y gcc-multilib gettext clang libusb-1.0-0-dev
+RUN apt update && apt install -y --no-install-suggests --no-install-recommends gcc-multilib gettext clang libusb-1.0-0-dev
 
 FROM base AS arm-toolchain
 ARG ARM_GNU_TOOLCHAIN_VERSION
@@ -17,8 +18,9 @@ RUN curl -L "https://developer.arm.com/-/media/Files/downloads/gnu/${ARM_GNU_TOO
 
 FROM base AS emsdk
 ARG EM_VERSION
-RUN git clone https://github.com/emscripten-core/emsdk.git /emsdk --depth 1 && \
+RUN git clone --depth 1 --branch ${EM_VERSION} https://github.com/emscripten-core/emsdk.git /emsdk && \
     cd /emsdk && \
+    git reset --hard ${EM_VERSION_COMMIT} && \
     ./emsdk install ${EM_VERSION} && \
     ./emsdk activate ${EM_VERSION}
 
