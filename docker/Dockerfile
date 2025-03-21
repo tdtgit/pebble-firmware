@@ -6,7 +6,7 @@ ARG ARM_GNU_TOOLCHAIN_PLATFORM=x86_64-arm-none-eabi
 ARG PEBBLE_BOARD_LIST="snowy_bb2 spalding_bb2 silk_bb2 asterix_evt1"
 
 FROM python:${PYTHON_VERSION} AS base
-RUN apt update && apt install -y gcc-multilib gettext clang libusb-1.0-0-dev
+RUN apt update && apt install -y --no-install-suggests --no-install-recommends gcc-multilib gettext clang libusb-1.0-0-dev
 
 FROM base AS arm-toolchain
 ARG ARM_GNU_TOOLCHAIN_VERSION
@@ -17,7 +17,7 @@ RUN curl -L "https://developer.arm.com/-/media/Files/downloads/gnu/${ARM_GNU_TOO
 
 FROM base AS emsdk
 ARG EM_VERSION
-RUN git clone https://github.com/emscripten-core/emsdk.git /emsdk --depth 1 && \
+RUN git clone --depth 1 --branch ${EM_VERSION} https://github.com/emscripten-core/emsdk.git /emsdk && \
     cd /emsdk && \
     ./emsdk install ${EM_VERSION} && \
     ./emsdk activate ${EM_VERSION}
